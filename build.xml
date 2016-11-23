@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SalesTaxes" default="help">
+
+	<!-- Import properties -->
+	<property file="build.properties" />
+
+	<property name="dir.src" value="src" />
+	<property name="dir.test" value="test" />
+	<property name="dir.build" value="target" />
+	<property name="dir.conf" value="conf" />
+	<property name="dir.libs" value="${dir.build}/libs" />
+	<property name="dir.classes" value="${dir.build}/classes" />
+	<property name="dir.testClasses" value="${dir.build}/test-classes" />
+	<property name="dir.testOutput" value="${dir.build}/test-output" />
+
+	<path id="classpath">
+		<fileset dir="${dir.libs}" />
+	</path>
+
+	<path id="test-classpath">
+		<fileset dir="${dir.libs}" />
+		<pathelement location="${dir.classes}" />
+		<pathelement location="${dir.testClasses}" />
+	</path>
+
+	<target name="init-ant-contrib"> 
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${ant.library.dir}/ant-contrib-1.0b3.jar" />
+			</classpath>
+		</taskdef>
+	</target>
+
+	<target name="help" description="">
+		<echo>This is help task</echo>
+		<echo>clean:     Removes output files created by other targets.</echo>
+		<echo>build:     Compiles project's .java files into .class files.</echo>
+		<echo>test:      Start tests.</echo>
+	</target>
+
+	<target name="clean">
+		<echo>Clean task start</echo>
+		<delete dir="${dir.build}" failonerror="false" includeemptydirs="true">
+			<include name="**" />
+		</delete>
+	</target>
+
+	<target name="copy-libs" depends="init-ant-contrib, clean">
+		<echo>Copy libs task start</echo>
+		<mkdir dir="${dir.libs}" />
+		<for list="${libs.files}" param="fileName">
+			<sequential>
+				<if>
+					<contains string="@{fileName}" substring=".jar" />
+					<then>
+						<copy file="@{fileName}" todir="${dir.libs}" />
+					</then>
+					<else>
+						<copy todir="${dir.libs}">
+							<fileset dir="@{fileName}" includes="*.jar" />
+						</copy>
+					</else>
+				</if>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="build" depends="copy-libs">
+		<echo>Build task start</echo>
+		<mkdir dir="${dir.build}" />
+		<mkdir dir="${dir.classes}" />
+		<copy todir="${dir.classes}">
+			<fileset dir="${dir.src}" />
+		</copy>
+		<javac debug="true" srcdir="${dir.src}" destdir="${dir.classes}" classpathref="classpath" includeantruntime="false" />
+	</target>
+
+	<target name="test" depends="build">
+		<echo>Test task start</echo>
+		<mkdir dir="${dir.testOutput}" />
+		<mkdir dir="${dir.testClasses}" />
+		<copy todir="${dir.testClasses}">
+			<fileset dir="${dir.test}" />
+		</copy>
+		
+		<javac srcdir="${dir.test}" destdir="${dir.testClasses}" classpathref="test-classpath" includeantruntime="false" />
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${project.class.path}" />
+				<path refid="test-classpath" />
+				<pathelement path="${dir.libs}/junit-4.12.jar" />
+			</classpath>
+
+			<formatter type="plain" />
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${dir.testOutput}">
+				<fileset dir="${dir.test}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+
+		</junit>
+	</target>
+</project>

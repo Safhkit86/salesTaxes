@@ -1,0 +1,32 @@
+Testsuite: it.salestaxes.test.SalesTaxesTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,075 sec
+------------- Standard Output ---------------
+Output 1:
+1 book: 12.49
+1 music CD: 16.49
+1 chocolate bar: 0.85
+Sales Taxes: 1.50
+Total: 29.83
+
+
+Output 2:
+1 imported box of chocolates: 10.50
+1 imported bottle of perfume: 54.65
+Sales Taxes: 7.65
+Total: 65.15
+
+
+Output 3:
+1 imported  bottle of perfume: 32.19
+1 bottle of perfume: 20.89
+1 packet of headache pills: 9.75
+1 imported box of chocolates: 11.80
+Sales Taxes: 6.65
+Total: 74.63
+
+
+------------- ---------------- ---------------
+
+Testcase: generateReceiptTest1 took 0,007 sec
+Testcase: generateReceiptTest2 took 0 sec
+Testcase: generateReceiptTest3 took 0,001 sec
