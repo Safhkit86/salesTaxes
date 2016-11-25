@@ -23,14 +23,6 @@
 		<pathelement location="${dir.testClasses}" />
 	</path>
 
-	<target name="init-ant-contrib"> 
-		<taskdef resource="net/sf/antcontrib/antlib.xml">
-			<classpath>
-				<pathelement location="${ant.library.dir}/ant-contrib-1.0b3.jar" />
-			</classpath>
-		</taskdef>
-	</target>
-
 	<target name="help" description="">
 		<echo>This is help task</echo>
 		<echo>clean:     Removes output files created by other targets.</echo>
@@ -45,24 +37,12 @@
 		</delete>
 	</target>
 
-	<target name="copy-libs" depends="init-ant-contrib, clean">
+	<target name="copy-libs" depends="clean">
 		<echo>Copy libs task start</echo>
 		<mkdir dir="${dir.libs}" />
-		<for list="${libs.files}" param="fileName">
-			<sequential>
-				<if>
-					<contains string="@{fileName}" substring=".jar" />
-					<then>
-						<copy file="@{fileName}" todir="${dir.libs}" />
-					</then>
-					<else>
-						<copy todir="${dir.libs}">
-							<fileset dir="@{fileName}" includes="*.jar" />
-						</copy>
-					</else>
-				</if>
-			</sequential>
-		</for>
+		<copy todir="${dir.libs}" >
+		 <fileset dir="${libs.files}" includes="**"/>  
+		</copy>
 	</target>
 
 	<target name="build" depends="copy-libs">
