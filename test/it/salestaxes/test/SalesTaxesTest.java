@@ -110,7 +110,7 @@ public class SalesTaxesTest {
 		goods.add(g1);
 		
 		GoodDTO g2 = new GoodDTO();
-		g2.setName("bottle of perfume");
+		g2.setName("bottle of perfume");
 		g2.setCategory(GoodsCategories.OTHER);
 		g2.setImported(true);
 		g2.setShelfPrice(new BigDecimal("47.50"));
@@ -154,34 +154,34 @@ public class SalesTaxesTest {
 		b.setGoods(goods);
 		
 		GoodDTO g1 = new GoodDTO();
-		g1.setName(" bottle of perfume");
+		g1.setName("bottle of perfume");
 		g1.setCategory(GoodsCategories.OTHER);
 		g1.setImported(true);
 		g1.setShelfPrice(new BigDecimal("27.99"));
 		goods.add(g1);
 		
 		GoodDTO g2 = new GoodDTO();
-		g2.setName("bottle of perfume");
+		g2.setName("bottle of perfume");
 		g2.setCategory(GoodsCategories.OTHER);
 		g2.setImported(false);
 		g2.setShelfPrice(new BigDecimal("18.99"));
 		goods.add(g2);
 		
 		GoodDTO g3 = new GoodDTO();
-		g3.setName("packet of headache pills");
+		g3.setName("packet of headache pills");
 		g3.setCategory(GoodsCategories.MEDICAL_PRODUCTS);
 		g3.setImported(false);
 		g3.setShelfPrice(new BigDecimal("9.75"));
 		goods.add(g3);
 		
 		GoodDTO g4 = new GoodDTO();
-		g4.setName("box of chocolates");
+		g4.setName("box of chocolates");
 		g4.setCategory(GoodsCategories.FOOD);
 		g4.setImported(true);
 		g4.setShelfPrice(new BigDecimal("11.25"));
 		goods.add(g4);
 		
-		
+				
 		System.out.println("Output 3:");
 		
 		
